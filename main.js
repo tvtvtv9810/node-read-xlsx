@@ -2,20 +2,24 @@
 
 import xlsx from 'xlsx';
 
-let workbook = xlsx.readFile('xlsx-data/test-data-01.xlsx');
+const workbook = xlsx.readFile('xlsx-data/test-data-01.xlsx');
 
+const sheet_name_list = workbook.SheetNames
 
-let sheet_name_list = workbook.SheetNames
-let Sheet1          = workbook.Sheets[sheet_name_list[0]]  // シート1をデータを取得します
-let Sheet1_json     = xlsx.utils.sheet_to_json( Sheet1 )   // シート1のデータをJSONパースします
+console.log("■シート名")
+sheet_name_list.forEach(sheet_name => console.log(sheet_name));
 
+const Sheet1          = workbook.Sheets[sheet_name_list[0]]  // シート1をデータを取得します
+const Sheet1_json     = xlsx.utils.sheet_to_json( Sheet1 )   // シート1のデータをJSONパースします
+
+console.log("■１シート目の内容JSON");
+// 通常は1行目がヘッダ行となる。{header: 1} を指定で配列形式となる。
+console.log(Sheet1_json);
 
 // (例)シート1のセルA1の値をコンソールに出力します
-let Sheet1A1        = Sheet1['A1'].v
-console.log( `シート1のセルA1の値：\n${Sheet1A1}` )
+const Sheet1A1 = Sheet1['A1'].v;
 
-// シート1の全ての値をコンソールに出力します
-console.log( `シート1の全ての値：` )
-for( let cl of Sheet1_json){
-  console.log( `${cl['A1の内容']} - ${cl['B1の内容']} - ${cl['C1の内容']}` )
-}
+console.log(`■シート1のセルA1の値：`);
+console.log(Sheet1A1);
+
+
